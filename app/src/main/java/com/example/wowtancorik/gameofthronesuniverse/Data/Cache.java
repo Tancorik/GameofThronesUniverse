@@ -14,6 +14,7 @@ import java.util.List;
 public class Cache {
 
     private List<NameAndNumber> mList;
+    volatile public static boolean mFillListFlag = false;
 
     /**
      * инициализация синглтона
@@ -49,4 +50,5 @@ public class Cache {
     public List<NameAndNumber> getList() {
         return mList;
     }
+
 }

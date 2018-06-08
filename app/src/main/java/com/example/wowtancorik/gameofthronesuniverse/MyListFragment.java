@@ -15,6 +15,8 @@ import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndNumber;
 
 import java.util.List;
 
+import static com.example.wowtancorik.gameofthronesuniverse.Data.Cache.mFillListFlag;
+
 /**
  * класс фрагмента содеражащего RecyclerView со списком героев
  *
@@ -51,7 +53,7 @@ public class MyListFragment extends Fragment {
         mAdapter = new MyAdapter(mListener);
         recyclerView.setAdapter(mAdapter);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && mFillListFlag) {
             onDataLoaded(Cache.getInstance().getList());
         }
     }

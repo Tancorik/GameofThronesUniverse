@@ -5,6 +5,8 @@ import com.example.wowtancorik.gameofthronesuniverse.Interfaces.IDataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.wowtancorik.gameofthronesuniverse.Data.Cache.mFillListFlag;
+
 /**
  * Класс управляет порядком обработки и возврата данных
  *
@@ -43,6 +45,7 @@ public class DataManager implements IDataSource, InfoLoader.IRequestDataString,
                 numPage += 1;
             } while (!mEnd);
             list = mCache.getList();
+            mFillListFlag = true;
         }
         return list;
     }
