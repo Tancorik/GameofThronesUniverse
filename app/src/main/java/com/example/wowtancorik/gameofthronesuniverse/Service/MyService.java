@@ -8,7 +8,7 @@ import android.support.annotation.WorkerThread;
 
 import com.example.wowtancorik.gameofthronesuniverse.Data.CharactersInfo;
 import com.example.wowtancorik.gameofthronesuniverse.Data.DataManager;
-import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndUrl;
+import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndNumber;
 
 import java.util.ArrayList;
 
@@ -51,8 +51,8 @@ public class MyService extends IntentService {
         DataManager dataManager = new DataManager();
         if (intent.getIntExtra(REQUEST_KEY,0) == LIST_CODE) {
 
-            ArrayList<NameAndUrl> list;
-            list = (ArrayList<NameAndUrl>) dataManager.loadDataBase();
+            ArrayList<NameAndNumber> list;
+            list = (ArrayList<NameAndNumber>) dataManager.loadDataBase();
             intent.putParcelableArrayListExtra(RESULT_KEY, list);
             try {
                 mPendingIntent.send(MyService.this, LIST_CODE, intent);

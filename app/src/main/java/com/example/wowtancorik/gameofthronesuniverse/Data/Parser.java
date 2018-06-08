@@ -35,7 +35,7 @@ public class Parser {
      * @param requestParsedNames    переменная возврата
      */
     public void parseNames(String string, IRequestParsedNames requestParsedNames) {
-        List<NameAndUrl> nameAndUrlList = new ArrayList<>();
+        List<NameAndNumber> nameAndNumberList = new ArrayList<>();
         try {
             JSONArray dataList = new JSONArray(string);
             for (int count = 0; count < dataList.length(); count++) {
@@ -46,13 +46,13 @@ public class Parser {
                 int number = Integer.parseInt(url);
                 if (name.equals(""))
                     name = "someone";
-                NameAndUrl onePerson = new NameAndUrl(name, number);
-                nameAndUrlList.add(onePerson);
+                NameAndNumber onePerson = new NameAndNumber(name, number);
+                nameAndNumberList.add(onePerson);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        requestParsedNames.namesCallback(nameAndUrlList);
+        requestParsedNames.namesCallback(nameAndNumberList);
     }
 
     /**
@@ -75,10 +75,16 @@ public class Parser {
         requestParsedCharacter.characterCallback(infolist);
     }
 
+    /**
+     * интерфейс для возврата списка имен
+     */
     interface IRequestParsedNames {
-        void namesCallback(List<NameAndUrl> nameAndUrlList);
+        void namesCallback(List<NameAndNumber> nameAndNumberList);
     }
 
+    /**
+     * интекфейс для возврата информации о конкретном герое
+     */
     interface IRequestParsedCharacter {
         void characterCallback(CharactersInfo charactersInfo);
     }

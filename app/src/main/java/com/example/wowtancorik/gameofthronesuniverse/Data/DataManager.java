@@ -20,34 +20,35 @@ public class DataManager implements IDataSource, InfoLoader.IRequestDataString,
     private InfoLoader infoLoader = new InfoLoader();
     private boolean mEnd = false;
     private Parser mParser = new Parser();
-    private List<NameAndUrl> mNameList = new ArrayList<>();
     private CharactersInfo mCharacterInfo;
     private String mDataString;
+    private Cache mCache = Cache.getInstance();
 
     /**
-     * обработать запрос на список имен персонажей
+     * загрузить список всех героев
      * заросить информацию с API, отправить на обработку в Парсер
      *
      * @return      возвращает список имен персонажей
      */
     @Override
-    public List<NameAndUrl> loadDataBase() {
-
-        int numPage=1;
-        do {
-            String pageURL = DATA_BASE_URL + "?page="+ numPage +"&pageSize=50";
-            infoLoader.loadfromOutsite(pageURL, this);
-            if (!mEnd)
-                mParser.parseNames(mDataString, this);
-            numPage+=1;
-        } while(!mEnd);
-        return mNameList;
+    public List<NameAndNumber> loadDataBase() {
+        List<NameAndNumber> list = mCache.getList();
+        if (list == null) {
+            int numPage = 1;
+            do {
+                String pageURL = DATA_BASE_URL + "?page=" + numPage + "&pageSize=50";
+                infoLoader.loadfromOutsite(pageURL, this);
+                if (!mEnd)
+                    mParser.parseNames(mDataString, this);
+                numPage += 1;
+            } while (!mEnd);
+            list = mCache.getList();
+        }
+        return list;
     }
 
-
     /**
-     * обработать запрос на информацию конкретного прерсонажа
-     * запросить информацию, отправить на обработку в Парсер
+     * загрузить информацию о персонаже, обработать и вернуть
      *
      * @param number    id номер персонажа
      * @return          возвращает информацию об одном персонаже
@@ -73,13 +74,13 @@ public class DataManager implements IDataSource, InfoLoader.IRequestDataString,
     }
 
     /**
-     * возвращает список имен после Парсера
+     * возвращает список имен после Парсера и сохраняет в Cache
      *
-     * @param nameAndUrlList    список имен и их id
+     * @param nameAndNumberList    список имен и их id
      */
     @Override
-    public void namesCallback(List<NameAndUrl> nameAndUrlList) {
-        mNameList.addAll(nameAndUrlList);
+    public void namesCallback(List<NameAndNumber> nameAndNumberList) {
+        mCache.addToList(nameAndNumberList);
     }
 
     /**

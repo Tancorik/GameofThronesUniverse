@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndUrl;
+import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndNumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<NameAndUrl> mNameAndUrl = new ArrayList<>();
+    private List<NameAndNumber> mNameAndNumber = new ArrayList<>();
     private IListener mListener;
 
 
@@ -37,8 +37,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      *
      * @param list      данные
      */
-    public void addDate(List<NameAndUrl> list) {
-        mNameAndUrl.addAll(list);
+    public void addDate(List<NameAndNumber> list) {
+        mNameAndNumber.addAll(list);
     }
 
 
@@ -65,11 +65,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.mTextView.setText(mNameAndUrl.get(position).getName());
+        holder.mTextView.setText(mNameAndNumber.get(position).getName());
         holder.mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.clickCallback(mNameAndUrl.get(position).getNumber());
+                mListener.clickListener(mNameAndNumber.get(position).getNumber());
             }
         });
     }
@@ -81,7 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return mNameAndUrl.size();
+        return mNameAndNumber.size();
     }
 
     /**
@@ -101,6 +101,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
      * интерфейс слушателя нажатия на RecyclerView
      */
     interface IListener {
-        void clickCallback(int number);
+        void clickListener(int number);
     }
 }

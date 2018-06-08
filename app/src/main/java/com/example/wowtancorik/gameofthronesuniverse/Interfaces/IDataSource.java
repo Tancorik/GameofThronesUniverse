@@ -1,7 +1,7 @@
 package com.example.wowtancorik.gameofthronesuniverse.Interfaces;
 
 import com.example.wowtancorik.gameofthronesuniverse.Data.CharactersInfo;
-import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndUrl;
+import com.example.wowtancorik.gameofthronesuniverse.Data.NameAndNumber;
 
 import java.util.List;
 
@@ -15,14 +15,14 @@ import java.util.List;
 public interface IDataSource {
 
     /**
-     * обработать списои имен и вернуть его
+     * загрузить список имен, обработать и вернуть
      *
      * @return
      */
-    List<NameAndUrl> loadDataBase();
+    List<NameAndNumber> loadDataBase();
 
     /**
-     * обработать информация об обном персонаже
+     * загрузить информацию о персонаже, обработать и вернуть
      *
      * @param number    id персонажа
      * @return          возвращает информацию об одном персонаже

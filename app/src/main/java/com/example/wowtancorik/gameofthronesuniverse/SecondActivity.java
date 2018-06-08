@@ -1,6 +1,7 @@
 package com.example.wowtancorik.gameofthronesuniverse;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -15,16 +16,47 @@ import static com.example.wowtancorik.gameofthronesuniverse.MainActivity.INFO_OF
  */
 public class SecondActivity extends AppCompatActivity {
 
+    public static final String CHARACTER_KEY = "character_key";
+
+    public CharacterFragment mCharacterFragment;
+    public String mText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        TextView textView = findViewById(R.id.text_view);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (savedInstanceState == null) {
+            mCharacterFragment = CharacterFragment.newInstance();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_holder, mCharacterFragment, CharacterFragment.TAG)
+                    .commit();
+
+        }
+        else {
+            mCharacterFragment = (CharacterFragment) fragmentManager.findFragmentByTag(CharacterFragment.TAG);
+        }
 
         Intent intent = getIntent();
-        String string = intent.getStringExtra(INFO_OF_PERSON_KEY);
+        mText = intent.getStringExtra(INFO_OF_PERSON_KEY);
+    }
 
-        textView.setText(string);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mCharacterFragment.setText(mText);
+    }
+
+    /**
+     * при нажатии "назад" возвращаем в стартовую активите текст который был в этой активити
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra(CHARACTER_KEY, mText);
+        setResult(RESULT_OK, intent);
+        super.onBackPressed();
     }
 }

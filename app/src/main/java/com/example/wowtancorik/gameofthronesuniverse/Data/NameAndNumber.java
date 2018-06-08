@@ -9,7 +9,7 @@ import android.os.Parcelable;
  *  @author Alexandr Karpachev
  *         Created on 28.05.18
  */
-public class NameAndUrl implements Parcelable{
+public class NameAndNumber implements Parcelable{
 
     private String mName;
     private int mNumber;
@@ -20,7 +20,7 @@ public class NameAndUrl implements Parcelable{
      * @param name
      * @param number
      */
-    public NameAndUrl (String name, int number) {
+    public NameAndNumber(String name, int number) {
         mName = name;
         mNumber = number;
     }
@@ -30,7 +30,7 @@ public class NameAndUrl implements Parcelable{
      *
      * @param in
      */
-    private NameAndUrl(Parcel in) {
+    private NameAndNumber(Parcel in) {
         mName = in.readString();
         mNumber = in.readInt();
     }
@@ -79,16 +79,16 @@ public class NameAndUrl implements Parcelable{
     /**
      *реализация CREATORа
      */
-    public static final Parcelable.Creator<NameAndUrl> CREATOR  =
-                                                        new Parcelable.Creator<NameAndUrl>() {
+    public static final Parcelable.Creator<NameAndNumber> CREATOR  =
+                                                        new Parcelable.Creator<NameAndNumber>() {
         @Override
-        public NameAndUrl createFromParcel(Parcel source) {
-            return new NameAndUrl(source);
+        public NameAndNumber createFromParcel(Parcel source) {
+            return new NameAndNumber(source);
         }
 
         @Override
-        public NameAndUrl[] newArray(int size) {
-            return new NameAndUrl[size];
+        public NameAndNumber[] newArray(int size) {
+            return new NameAndNumber[size];
         }
     };
 }
